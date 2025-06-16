@@ -5,3 +5,10 @@ version: "1.0"
 api-version: "1.13"
 authors:
   - ComuGamers
+commands:
+  team:
+    description: Gestion de equipos
+    usage: "/team <create|join|leave>"
+  defenders:
+    description: Gestion de defensores
+    usage: "/defenders <start|end> [equipo]"
