@@ -5,3 +5,12 @@ version: "1.0"
 api-version: "1.13"
 authors:
   - ComuGamers
+commands:
+  bastion1:
+    description: Seleccionar primera esquina del bastion
+  bastion2:
+    description: Seleccionar segunda esquina del bastion
+  eliminarbastion:
+    description: Elimina el bastion del equipo
+  getbastion:
+    description: Obtiene las coordenadas del bastion de un equipo
