@@ -1,4 +1,9 @@
 com\comugamers\spigot\command\EjemploCommand.class
+com\comugamers\spigot\team\TeamServiceImpl.class
+com\comugamers\spigot\command\DefendersCommand.class
 com\comugamers\spigot\service\IEjemploService.class
+com\comugamers\spigot\team\Team.class
 com\comugamers\spigot\Main.class
 com\comugamers\spigot\service\impl\EjemploServiceImpl.class
+com\comugamers\spigot\command\TeamCommand.class
+com\comugamers\spigot\team\ITeamService.class
