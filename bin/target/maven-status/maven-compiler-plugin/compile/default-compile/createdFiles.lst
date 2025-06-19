@@ -1,0 +1,4 @@
+com\comugamers\spigot\command\EjemploCommand.class
+com\comugamers\spigot\service\IEjemploService.class
+com\comugamers\spigot\Main.class
+com\comugamers\spigot\service\impl\EjemploServiceImpl.class
