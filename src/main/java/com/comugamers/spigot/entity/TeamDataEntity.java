@@ -1,10 +1,8 @@
 package com.comugamers.spigot.entity;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
-import org.jetbrains.annotations.NotNull;
 
 import com.comugamers.quanta.modules.storage.annotation.Entity;
 import com.comugamers.quanta.modules.storage.annotation.Id;
@@ -20,20 +18,14 @@ public class TeamDataEntity {
 	
 	@Id
     private String id;
-	private String displayName;
-	private UUID leader;
-	private List<UUID> players;
-	public void setId(String id2) {
-		// TODO Auto-generated method stub
-		
-	}
-	public void setDisplayName(String displayName2) {
-		// TODO Auto-generated method stub
-		
-	}
-	public void setLeader(@NotNull UUID uniqueId) {
-		// TODO Auto-generated method stub
-		
-	}
-	
+    private String displayName;
+    private UUID leader;
+    private List<UUID> players;
+
+    // Bastion zone corners. Only X and Z are stored, Y is considered unlimited.
+    private Integer bastion1X;
+    private Integer bastion1Z;
+    private Integer bastion2X;
+    private Integer bastion2Z;
+
 }
