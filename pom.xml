@@ -24,17 +24,17 @@
 		<dependency>
 			<groupId>com.comugamers.quanta.platform.paper</groupId>
 			<artifactId>quanta-platform-paper</artifactId>
-			<version>2025.0615.1-SNAPSHOT</version>
+			<version>2025.0620.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 		  <groupId>com.comugamers.quanta.modules.storage</groupId>
 		  <artifactId>quanta-storage</artifactId>
-		  <version>2025.0615.1-SNAPSHOT</version>
+		  <version>2025.0620.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 		  <groupId>com.comugamers.quanta</groupId>
 		  <artifactId>quanta-storage-core</artifactId>
-		  <version>2025.0612.null</version>
+		  <version>2025.0620.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 	    	<groupId>org.projectlombok</groupId>

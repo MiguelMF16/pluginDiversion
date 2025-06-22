@@ -2,6 +2,13 @@ package com.comugamers.spigot;
 
 
 import com.comugamers.quanta.platform.paper.QuantaPaperPlugin;
+import com.comugamers.quanta.annotations.EnableModules;
+import com.comugamers.quanta.modules.storage.BaseStorageModule;
+
+
+@EnableModules({
+        BaseStorageModule.class,
+})
 
 public class Main extends QuantaPaperPlugin {
 
