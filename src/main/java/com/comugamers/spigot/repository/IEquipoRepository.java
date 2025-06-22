@@ -8,6 +8,6 @@ import com.comugamers.spigot.entity.TeamDataEntity;
 @Repository(storageType = StorageType.IN_MEMORY)
 public interface IEquipoRepository extends QuantaRepository<TeamDataEntity, String>{
 
-    boolean existByDisplayName(String displayName);
+    boolean existsByDisplayName(String displayName);
 
 }

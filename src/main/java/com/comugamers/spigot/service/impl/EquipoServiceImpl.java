@@ -27,7 +27,7 @@ public class EquipoServiceImpl implements IEquipoService{
 			return false;
 		}
 
-        if (repository.existByDisplayName(displayName)) {
+        if (repository.existsByDisplayName(displayName)) {
 			return false;
         }
 

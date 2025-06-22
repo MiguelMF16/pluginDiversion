@@ -23,17 +23,5 @@ public class TeamDataEntity {
 	private String displayName;
 	private UUID leader;
 	private List<UUID> players;
-	public void setId(String id2) {
-		// TODO Auto-generated method stub
-		
-	}
-	public void setDisplayName(String displayName2) {
-		// TODO Auto-generated method stub
-		
-	}
-	public void setLeader(@NotNull UUID uniqueId) {
-		// TODO Auto-generated method stub
-		
-	}
 	
 }
