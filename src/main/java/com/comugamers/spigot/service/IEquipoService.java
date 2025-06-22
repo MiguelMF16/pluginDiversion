@@ -14,9 +14,14 @@ public interface IEquipoService {
 
     TeamDataEntity getTeamByLeader(UUID leader);
     TeamDataEntity getTeamByMember(UUID playerId);
+    TeamDataEntity getTeamById(String teamId);
     void setBastionCorner(UUID leader, int x, int z, boolean first);
     void removeBastion(UUID leader);
     int[] getBastion(String teamId);
+    void setAttackZone(String teamId, int x, int y, int z);
+    void startAttackPhase(String teamId);
+    void setAttackTarget(String teamId);
+    String getAttackTarget();
     void setTeamRestricted(String teamId, boolean restricted);
     boolean isTeamRestricted(String teamId);
 }

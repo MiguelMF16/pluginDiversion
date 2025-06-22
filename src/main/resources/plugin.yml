@@ -20,3 +20,9 @@ commands:
     description: Impide que los jugadores de un equipo salgan de su bastion
   desbloquearbastion:
     description: Permite nuevamente salir del bastion al equipo indicado
+  setzonaataque:
+    description: Define la zona donde se teletransportarán los atacantes de un equipo
+  iniciarataque:
+    description: Teletransporta a los jugadores para iniciar la fase de ataque
+  objetivopvp:
+    description: Permite atacar al equipo indicado sin PVP entre los atacantes

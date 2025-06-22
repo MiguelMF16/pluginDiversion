@@ -27,6 +27,11 @@ public class TeamDataEntity {
     private Integer bastion1Z;
     private Integer bastion2X;
     private Integer bastion2Z;
+
+    // Location where attacking players should be teleported when this team is attacked
+    private Integer attackX;
+    private Integer attackY;
+    private Integer attackZ;
 	public String getId() {
 		return id;
 	}
@@ -69,12 +74,36 @@ public class TeamDataEntity {
 	public void setBastion2X(Integer bastion2x) {
 		bastion2X = bastion2x;
 	}
-	public Integer getBastion2Z() {
-		return bastion2Z;
-	}
-	public void setBastion2Z(Integer bastion2z) {
-		bastion2Z = bastion2z;
-	}
+        public Integer getBastion2Z() {
+                return bastion2Z;
+        }
+        public void setBastion2Z(Integer bastion2z) {
+                bastion2Z = bastion2z;
+        }
+
+        public Integer getAttackX() {
+                return attackX;
+        }
+
+        public void setAttackX(Integer attackX) {
+                this.attackX = attackX;
+        }
+
+        public Integer getAttackY() {
+                return attackY;
+        }
+
+        public void setAttackY(Integer attackY) {
+                this.attackY = attackY;
+        }
+
+        public Integer getAttackZ() {
+                return attackZ;
+        }
+
+        public void setAttackZ(Integer attackZ) {
+                this.attackZ = attackZ;
+        }
     
     
     
