@@ -1,6 +1,5 @@
 package com.comugamers.spigot.listener;
 
-import com.comugamers.quanta.annotations.alias.Autowired;
 import com.comugamers.spigot.entity.TeamDataEntity;
 import com.comugamers.spigot.service.IEquipoService;
 import org.bukkit.event.EventHandler;
@@ -11,8 +10,11 @@ import org.bukkit.Location;
 
 public class BastionBoundaryListener implements Listener {
 
-    @Autowired
-    private IEquipoService equipoService;
+    private final IEquipoService equipoService;
+
+    public BastionBoundaryListener(IEquipoService equipoService) {
+        this.equipoService = equipoService;
+    }
 
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent event) {
