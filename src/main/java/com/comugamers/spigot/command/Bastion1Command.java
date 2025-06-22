@@ -16,6 +16,10 @@ public class Bastion1Command extends BaseCommand {
 
     @Default
     public void execute(Player player) {
+        if (equipoService.getTeamByMember(player.getUniqueId()) == null) {
+            player.sendMessage("Debes pertenecer a un equipo para usar este comando.");
+            return;
+        }
         Location loc = player.getLocation();
         equipoService.setBastionCorner(player.getUniqueId(), loc.getBlockX(), loc.getBlockZ(), true);
         player.sendMessage("Primera esquina del bastion establecida.");

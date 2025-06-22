@@ -14,3 +14,7 @@ commands:
     description: Elimina el bastion del equipo
   getbastion:
     description: Obtiene las coordenadas del bastion de un equipo
+  verbastion:
+    description: Muestra el bastion de un equipo
+  bloquearbastion:
+    description: Impide que los jugadores de un equipo salgan de su bastion

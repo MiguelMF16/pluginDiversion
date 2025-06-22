@@ -12,8 +12,11 @@ public interface IEquipoService {
         void addMember();
         void leaveTeam();
 
-        TeamDataEntity getTeamByLeader(UUID leader);
-        void setBastionCorner(UUID leader, int x, int z, boolean first);
-        void removeBastion(UUID leader);
-        int[] getBastion(String teamId);
+    TeamDataEntity getTeamByLeader(UUID leader);
+    TeamDataEntity getTeamByMember(UUID playerId);
+    void setBastionCorner(UUID leader, int x, int z, boolean first);
+    void removeBastion(UUID leader);
+    int[] getBastion(String teamId);
+    void setTeamRestricted(String teamId, boolean restricted);
+    boolean isTeamRestricted(String teamId);
 }

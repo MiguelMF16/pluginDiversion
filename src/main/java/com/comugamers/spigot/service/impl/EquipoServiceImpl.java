@@ -12,15 +12,19 @@ import com.comugamers.spigot.service.IEquipoService;
 
 import java.util.Map;
 import java.util.Optional;
+import java.util.HashSet;
+import java.util.Set;
 
 @Service
 public class EquipoServiceImpl implements IEquipoService{
 
-	@Autowired
-	private Plugin plugin;
+        @Autowired
+        private Plugin plugin;
 
-	@Autowired
-	private IEquipoRepository repository;
+        @Autowired
+        private IEquipoRepository repository;
+
+        private final Set<String> restrictedTeams = new HashSet<>();
 
 	@Override
 	public boolean createTeam(String id, String displayName, Player player) {
@@ -55,6 +59,19 @@ public class EquipoServiceImpl implements IEquipoService{
     @Override
     public TeamDataEntity getTeamByLeader(UUID leader) {
         return repository.findByLeader(leader);
+    }
+
+    @Override
+    public TeamDataEntity getTeamByMember(UUID playerId) {
+        for (TeamDataEntity team : repository.findAll()) {
+            if (playerId.equals(team.getLeader())) {
+                return team;
+            }
+            if (team.getPlayers() != null && team.getPlayers().contains(playerId)) {
+                return team;
+            }
+        }
+        return null;
     }
 
     @Override
@@ -98,6 +115,20 @@ public class EquipoServiceImpl implements IEquipoService{
             return null;
         }
         return new int[]{team.getBastion1X(), team.getBastion1Z(), team.getBastion2X(), team.getBastion2Z()};
+    }
+
+    @Override
+    public void setTeamRestricted(String teamId, boolean restricted) {
+        if (restricted) {
+            restrictedTeams.add(teamId);
+        } else {
+            restrictedTeams.remove(teamId);
+        }
+    }
+
+    @Override
+    public boolean isTeamRestricted(String teamId) {
+        return restrictedTeams.contains(teamId);
     }
 
 }
