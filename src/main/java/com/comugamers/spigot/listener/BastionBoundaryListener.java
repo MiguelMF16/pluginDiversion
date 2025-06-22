@@ -7,10 +7,16 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.entity.Player;
 import org.bukkit.Location;
+import org.bukkit.util.Vector;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 public class BastionBoundaryListener implements Listener {
 
     private final IEquipoService equipoService;
+    private final Map<UUID, Long> lastMessageTime = new HashMap<>();
 
     public BastionBoundaryListener(IEquipoService equipoService) {
         this.equipoService = equipoService;
@@ -44,7 +50,18 @@ public class BastionBoundaryListener implements Listener {
         double z = to.getZ();
         if (x < minX || x > maxX || z < minZ || z > maxZ) {
             event.setCancelled(true);
-            player.sendMessage("No puedes salir de tu bastion.");
+
+            long now = System.currentTimeMillis();
+            Long last = lastMessageTime.get(player.getUniqueId());
+            if (last == null || now - last > 2000) {
+                player.sendMessage("No puedes salir de tu bastion.");
+                lastMessageTime.put(player.getUniqueId(), now);
+            }
+
+            Vector knockback = event.getFrom().toVector().subtract(to.toVector()).normalize().multiply(0.5);
+            knockback.setY(0.3);
+            player.setVelocity(knockback);
+            player.damage(4.0);
         }
     }
 }

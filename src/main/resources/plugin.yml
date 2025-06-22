@@ -18,3 +18,5 @@ commands:
     description: Muestra el bastion de un equipo
   bloquearbastion:
     description: Impide que los jugadores de un equipo salgan de su bastion
+  desbloquearbastion:
+    description: Permite nuevamente salir del bastion al equipo indicado
