@@ -295,6 +295,13 @@ public class EquipoServiceImpl implements IEquipoService{
     }
 
     @Override
+    public void addPlayerToAttackBar(Player player) {
+        if (attackBossBar != null) {
+            attackBossBar.addPlayer(player);
+        }
+    }
+
+    @Override
     public boolean isAttackLeader(UUID uuid) {
         return attackLeader != null && attackLeader.equals(uuid);
     }

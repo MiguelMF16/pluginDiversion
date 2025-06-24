@@ -29,4 +29,11 @@ public interface IEquipoService {
     String getAttackTarget();
     void setTeamRestricted(String teamId, boolean restricted);
     boolean isTeamRestricted(String teamId);
+
+    /**
+     * Agrega un jugador al contador de ataque si hay uno activo.
+     *
+     * @param player Jugador a agregar.
+     */
+    void addPlayerToAttackBar(Player player);
 }
