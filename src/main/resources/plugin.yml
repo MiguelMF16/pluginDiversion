@@ -1,4 +1,4 @@
-name: pluginPrueba
+name: lajaulavsPromoTwitch
 api: "1.13"
 main: com.comugamers.spigot.Main
 version: "1.0"
