@@ -9,6 +9,8 @@ import org.bukkit.boss.BarStyle;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitTask;
+import org.bukkit.Location;
+import org.bukkit.World;
 import java.util.UUID;
 
 import com.comugamers.quanta.annotations.Service;
@@ -253,13 +255,11 @@ public class EquipoServiceImpl implements IEquipoService{
                 int maxX = Math.max(bastion[0], bastion[2]);
                 int minZ = Math.min(bastion[1], bastion[3]);
                 int maxZ = Math.max(bastion[1], bastion[3]);
-                int targetX = (minX + maxX) / 2;
-                int targetZ = (minZ + maxZ) / 2;
-                int targetY = player.getWorld().getHighestBlockYAt(targetX, targetZ) + 1;
-                player.teleport(new org.bukkit.Location(player.getWorld(), targetX + 0.5, targetY, targetZ + 0.5));
+                Location safe = findSafeLocation(player.getWorld(), minX, maxX, minZ, maxZ);
+                player.teleport(safe);
             } else {
                 int y = player.getWorld().getHighestBlockYAt(team.getAttackX(), team.getAttackZ()) + 1;
-                player.teleport(new org.bukkit.Location(player.getWorld(), team.getAttackX() + 0.5, y, team.getAttackZ() + 0.5));
+                player.teleport(new Location(player.getWorld(), team.getAttackX() + 0.5, y, team.getAttackZ() + 0.5));
             }
         }
 
@@ -278,6 +278,25 @@ public class EquipoServiceImpl implements IEquipoService{
             long seconds = (System.currentTimeMillis() - attackStart) / 1000;
             attackBossBar.setTitle("Tiempo: " + seconds + "s");
         }, 0L, 20L);
+    }
+
+    private Location findSafeLocation(World world, int minX, int maxX, int minZ, int maxZ) {
+        for (int x = minX; x <= maxX; x++) {
+            for (int z = minZ; z <= maxZ; z++) {
+                int y = world.getHighestBlockYAt(x, z) + 1;
+                if (y >= world.getMaxHeight() - 1) {
+                    continue;
+                }
+                if (world.getBlockAt(x, y, z).getType().isAir() &&
+                    world.getBlockAt(x, y + 1, z).getType().isAir()) {
+                    return new Location(world, x + 0.5, y, z + 0.5);
+                }
+            }
+        }
+        int centerX = (minX + maxX) / 2;
+        int centerZ = (minZ + maxZ) / 2;
+        int centerY = world.getHighestBlockYAt(centerX, centerZ) + 1;
+        return new Location(world, centerX + 0.5, centerY, centerZ + 0.5);
     }
 
     @Override
