@@ -14,6 +14,9 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class EquipoServiceImpl implements IEquipoService{
@@ -25,6 +28,8 @@ public class EquipoServiceImpl implements IEquipoService{
         private IEquipoRepository repository;
 
     private final Set<String> restrictedTeams = new HashSet<>();
+    // Invitaciones pendientes: jugador -> id del equipo
+    private final Map<UUID, String> pendingInvites = new HashMap<>();
     private String attackTarget;
 
 	@Override
@@ -42,20 +47,86 @@ public class EquipoServiceImpl implements IEquipoService{
 		entity.setId(id);
 		entity.setDisplayName(displayName);
 		entity.setLeader(player.getUniqueId());
-		repository.save(entity);
+                repository.save(entity);
 
-		return true;
+                return true;
     }
-
-	@Override
-	public void addMember() {
-
-	}
 
     @Override
-    public void leaveTeam() {
-
+    public boolean inviteMember(Player leader, Player target) {
+        TeamDataEntity team = repository.findByLeader(leader.getUniqueId());
+        if (team == null) {
+            return false;
+        }
+        if (getTeamByMember(target.getUniqueId()) != null) {
+            return false;
+        }
+        int currentSize = team.getPlayers() == null ? 1 : team.getPlayers().size() + 1;
+        if (currentSize >= 4) {
+            return false;
+        }
+        pendingInvites.put(target.getUniqueId(), team.getId());
+        target.sendMessage("Has sido invitado al equipo " + team.getDisplayName() + ". Usa /equipo aceptar o /equipo rechazar.");
+        return true;
     }
+
+    @Override
+    public boolean acceptInvite(Player player) {
+        String teamId = pendingInvites.remove(player.getUniqueId());
+        if (teamId == null) {
+            return false;
+        }
+        TeamDataEntity team = getTeamById(teamId);
+        if (team == null) {
+            return false;
+        }
+        if (team.getPlayers() == null) {
+            team.setPlayers(new ArrayList<>());
+        }
+        int currentSize = team.getPlayers().size() + 1;
+        if (currentSize >= 4) {
+            return false;
+        }
+        team.getPlayers().add(player.getUniqueId());
+        repository.save(team);
+        player.sendMessage("Te has unido al equipo " + team.getDisplayName());
+        return true;
+    }
+
+    @Override
+    public boolean rejectInvite(Player player) {
+        return pendingInvites.remove(player.getUniqueId()) != null;
+    }
+
+    @Override
+    public boolean kickMember(Player leader, Player target) {
+        TeamDataEntity team = repository.findByLeader(leader.getUniqueId());
+        if (team == null || team.getPlayers() == null) {
+            return false;
+        }
+        boolean removed = team.getPlayers().remove(target.getUniqueId());
+        if (removed) {
+            repository.save(team);
+            target.sendMessage("Has sido expulsado del equipo " + team.getDisplayName());
+        }
+        return removed;
+    }
+
+    @Override
+    public void leaveTeam(Player player) {
+        TeamDataEntity team = getTeamByMember(player.getUniqueId());
+        if (team == null) {
+            return;
+        }
+        if (player.getUniqueId().equals(team.getLeader())) {
+            return; // El líder no puede abandonar su propio equipo
+        }
+        if (team.getPlayers() != null) {
+            team.getPlayers().remove(player.getUniqueId());
+            repository.save(team);
+        }
+    }
+
 
     @Override
     public TeamDataEntity getTeamByLeader(UUID leader) {
