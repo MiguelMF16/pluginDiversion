@@ -20,6 +20,8 @@ public interface IEquipoService {
     int[] getBastion(String teamId);
     void setAttackZone(String teamId, int x, int y, int z);
     void startAttackPhase(String teamId);
+    void stopAttackTimer();
+    boolean isAttackLeader(UUID uuid);
     void setAttackTarget(String teamId);
     String getAttackTarget();
     void setTeamRestricted(String teamId, boolean restricted);

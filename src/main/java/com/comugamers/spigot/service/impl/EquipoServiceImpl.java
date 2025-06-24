@@ -2,8 +2,13 @@ package com.comugamers.spigot.service.impl;
 
 import com.comugamers.spigot.entity.TeamDataEntity;
 import com.comugamers.spigot.repository.IEquipoRepository;
+import org.bukkit.Bukkit;
+import org.bukkit.boss.BossBar;
+import org.bukkit.boss.BarColor;
+import org.bukkit.boss.BarStyle;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.scheduler.BukkitTask;
 import java.util.UUID;
 
 import com.comugamers.quanta.annotations.Service;
@@ -26,6 +31,10 @@ public class EquipoServiceImpl implements IEquipoService{
 
     private final Set<String> restrictedTeams = new HashSet<>();
     private String attackTarget;
+    private BossBar attackBossBar;
+    private BukkitTask attackTask;
+    private long attackStart;
+    private UUID attackLeader;
 
 	@Override
 	public boolean createTeam(String id, String displayName, Player player) {
@@ -182,6 +191,41 @@ public class EquipoServiceImpl implements IEquipoService{
                 player.teleport(new org.bukkit.Location(player.getWorld(), team.getAttackX() + 0.5, y, team.getAttackZ() + 0.5));
             }
         }
+
+        startAttackTimer(team);
+    }
+
+    private void startAttackTimer(TeamDataEntity team) {
+        attackLeader = team.getLeader();
+        attackStart = System.currentTimeMillis();
+        attackBossBar = Bukkit.createBossBar("Tiempo: 0s", BarColor.RED, BarStyle.SOLID);
+        attackBossBar.setVisible(true);
+        for (Player p : Bukkit.getOnlinePlayers()) {
+            attackBossBar.addPlayer(p);
+        }
+        attackTask = Bukkit.getScheduler().runTaskTimer(plugin, () -> {
+            long seconds = (System.currentTimeMillis() - attackStart) / 1000;
+            attackBossBar.setTitle("Tiempo: " + seconds + "s");
+        }, 0L, 20L);
+    }
+
+    @Override
+    public void stopAttackTimer() {
+        if (attackTask != null) {
+            attackTask.cancel();
+            attackTask = null;
+        }
+        if (attackBossBar != null) {
+            attackBossBar.removeAll();
+            attackBossBar.setVisible(false);
+            attackBossBar = null;
+        }
+        attackLeader = null;
+    }
+
+    @Override
+    public boolean isAttackLeader(UUID uuid) {
+        return attackLeader != null && attackLeader.equals(uuid);
     }
 
     @Override
