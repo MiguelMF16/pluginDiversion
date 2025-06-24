@@ -9,8 +9,11 @@ import java.util.UUID;
 @ImplementedBy(EquipoServiceImpl.class)
 public interface IEquipoService {
         boolean createTeam(String id, String displayName, Player player);
-        void addMember();
-        void leaveTeam();
+        boolean inviteMember(Player leader, Player target);
+        boolean acceptInvite(Player player);
+        boolean rejectInvite(Player player);
+        boolean kickMember(Player leader, Player target);
+        void leaveTeam(Player player);
 
     TeamDataEntity getTeamByLeader(UUID leader);
     TeamDataEntity getTeamByMember(UUID playerId);
