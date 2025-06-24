@@ -41,4 +41,60 @@ public class EquipoCommand extends BaseCommand {
             sender.sendMessage("Equipo ya existente");
         }
     }
+
+    @SubCommand("invitar")
+    public void invitar(CommandSender sender, Player objetivo) {
+        if (!(sender instanceof Player)) {
+            sender.sendMessage("Este comando debe ser ejecutado desde el juego.");
+            return;
+        }
+        Player jugador = (Player) sender;
+        if (equipoService.inviteMember(jugador, objetivo)) {
+            sender.sendMessage("Invitación enviada a " + objetivo.getName());
+        } else {
+            sender.sendMessage("No se pudo enviar la invitación.");
+        }
+    }
+
+    @SubCommand("aceptar")
+    public void aceptar(CommandSender sender) {
+        if (!(sender instanceof Player)) {
+            sender.sendMessage("Este comando debe ser ejecutado desde el juego.");
+            return;
+        }
+        Player jugador = (Player) sender;
+        if (equipoService.acceptInvite(jugador)) {
+            sender.sendMessage("Has aceptado la invitación.");
+        } else {
+            sender.sendMessage("No tienes invitaciones pendientes.");
+        }
+    }
+
+    @SubCommand("rechazar")
+    public void rechazar(CommandSender sender) {
+        if (!(sender instanceof Player)) {
+            sender.sendMessage("Este comando debe ser ejecutado desde el juego.");
+            return;
+        }
+        Player jugador = (Player) sender;
+        if (equipoService.rejectInvite(jugador)) {
+            sender.sendMessage("Has rechazado la invitación.");
+        } else {
+            sender.sendMessage("No tienes invitaciones pendientes.");
+        }
+    }
+
+    @SubCommand("expulsar")
+    public void expulsar(CommandSender sender, Player objetivo) {
+        if (!(sender instanceof Player)) {
+            sender.sendMessage("Este comando debe ser ejecutado desde el juego.");
+            return;
+        }
+        Player jugador = (Player) sender;
+        if (equipoService.kickMember(jugador, objetivo)) {
+            sender.sendMessage("Has expulsado a " + objetivo.getName());
+        } else {
+            sender.sendMessage("No se pudo expulsar al jugador.");
+        }
+    }
 }
