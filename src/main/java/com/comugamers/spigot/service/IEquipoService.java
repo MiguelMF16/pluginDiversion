@@ -36,4 +36,29 @@ public interface IEquipoService {
      * @param player Jugador a agregar.
      */
     void addPlayerToAttackBar(Player player);
+
+    /**
+     * Inicializa el scoreboard y los equipos de PvP.
+     */
+    void initScoreboard();
+
+    /**
+     * Reasigna a todos los jugadores online a los equipos del scoreboard
+     * según el equipo que está defendiendo actualmente.
+     */
+    void refreshTeams();
+
+    /**
+     * Actualiza la pertenencia de un jugador al unirse al servidor.
+     *
+     * @param player Jugador que se une.
+     */
+    void handlePlayerJoin(Player player);
+
+    /**
+     * Elimina a un jugador de los equipos al desconectarse.
+     *
+     * @param player Jugador que se va.
+     */
+    void handlePlayerQuit(Player player);
 }

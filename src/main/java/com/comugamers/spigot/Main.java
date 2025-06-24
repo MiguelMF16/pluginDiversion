@@ -5,7 +5,6 @@ import com.comugamers.quanta.platform.paper.QuantaPaperPlugin;
 import com.comugamers.quanta.annotations.EnableModules;
 import com.comugamers.quanta.modules.storage.BaseStorageModule;
 import com.comugamers.spigot.listener.BastionBoundaryListener;
-import com.comugamers.spigot.listener.PvpAttackListener;
 import com.comugamers.spigot.listener.AttackLeaderDeathListener;
 import com.comugamers.spigot.listener.AttackJoinListener;
 import com.comugamers.quanta.annotations.alias.Autowired;
@@ -25,9 +24,9 @@ public class Main extends QuantaPaperPlugin {
     protected void onPluginEnable() {
         getLogger().info("ExamplePlugin has been enabled! This is a placeholder plugin to demonstrate the Quanta platform.");
         getServer().getPluginManager().registerEvents(new BastionBoundaryListener(equipoService), this);
-        getServer().getPluginManager().registerEvents(new PvpAttackListener(equipoService), this);
         getServer().getPluginManager().registerEvents(new AttackLeaderDeathListener(equipoService), this);
         getServer().getPluginManager().registerEvents(new AttackJoinListener(equipoService), this);
+        equipoService.initScoreboard();
     }
 
     @Override

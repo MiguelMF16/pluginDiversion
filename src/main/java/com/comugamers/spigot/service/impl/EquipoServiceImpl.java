@@ -11,6 +11,10 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.ChatColor;
+import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.ScoreboardManager;
+import org.bukkit.scoreboard.Team;
 import java.util.UUID;
 
 import com.comugamers.quanta.annotations.Service;
@@ -42,6 +46,10 @@ public class EquipoServiceImpl implements IEquipoService{
     private BukkitTask attackTask;
     private long attackStart;
     private UUID attackLeader;
+
+    private Scoreboard scoreboard;
+    private Team defensoresTeam;
+    private Team atacantesTeam;
 
 	@Override
 	public boolean createTeam(String id, String displayName, Player player) {
@@ -222,6 +230,7 @@ public class EquipoServiceImpl implements IEquipoService{
     @Override
     public void setAttackTarget(String teamId) {
         this.attackTarget = teamId;
+        refreshTeams();
     }
 
     @Override
@@ -236,6 +245,8 @@ public class EquipoServiceImpl implements IEquipoService{
             return;
         }
         TeamDataEntity team = opt.get();
+        this.attackTarget = teamId;
+        refreshTeams();
         if (team.getAttackX() == null || team.getAttackY() == null || team.getAttackZ() == null) {
             return;
         }
@@ -337,6 +348,82 @@ public class EquipoServiceImpl implements IEquipoService{
     @Override
     public boolean isTeamRestricted(String teamId) {
         return restrictedTeams.contains(teamId);
+    }
+
+    // ----- Scoreboard management -----
+
+    @Override
+    public void initScoreboard() {
+        ScoreboardManager manager = Bukkit.getScoreboardManager();
+        if (manager == null) {
+            return;
+        }
+        scoreboard = manager.getMainScoreboard();
+
+        Team def = scoreboard.getTeam("Defensores");
+        if (def != null) {
+            def.unregister();
+        }
+        Team atk = scoreboard.getTeam("Atacantes");
+        if (atk != null) {
+            atk.unregister();
+        }
+
+        defensoresTeam = scoreboard.registerNewTeam("Defensores");
+        defensoresTeam.setAllowFriendlyFire(false);
+        defensoresTeam.setPrefix(ChatColor.GREEN + "[D] ");
+
+        atacantesTeam = scoreboard.registerNewTeam("Atacantes");
+        atacantesTeam.setAllowFriendlyFire(true);
+        atacantesTeam.setPrefix(ChatColor.RED + "[A] ");
+    }
+
+    @Override
+    public void refreshTeams() {
+        if (scoreboard == null || defensoresTeam == null || atacantesTeam == null) {
+            return;
+        }
+        for (String e : new HashSet<>(defensoresTeam.getEntries())) {
+            defensoresTeam.removeEntry(e);
+        }
+        for (String e : new HashSet<>(atacantesTeam.getEntries())) {
+            atacantesTeam.removeEntry(e);
+        }
+
+        for (Player p : Bukkit.getOnlinePlayers()) {
+            TeamDataEntity team = getTeamByMember(p.getUniqueId());
+            if (attackTarget != null && team != null && attackTarget.equals(team.getId())) {
+                defensoresTeam.addEntry(p.getName());
+            } else {
+                atacantesTeam.addEntry(p.getName());
+            }
+            p.setScoreboard(scoreboard);
+        }
+    }
+
+    @Override
+    public void handlePlayerJoin(Player player) {
+        addPlayerToAttackBar(player);
+        if (scoreboard == null) {
+            return;
+        }
+        TeamDataEntity team = getTeamByMember(player.getUniqueId());
+        if (attackTarget != null && team != null && attackTarget.equals(team.getId())) {
+            defensoresTeam.addEntry(player.getName());
+        } else {
+            atacantesTeam.addEntry(player.getName());
+        }
+        player.setScoreboard(scoreboard);
+    }
+
+    @Override
+    public void handlePlayerQuit(Player player) {
+        if (defensoresTeam != null) {
+            defensoresTeam.removeEntry(player.getName());
+        }
+        if (atacantesTeam != null) {
+            atacantesTeam.removeEntry(player.getName());
+        }
     }
 
 }
