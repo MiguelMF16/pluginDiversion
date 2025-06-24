@@ -203,7 +203,7 @@ public class EquipoServiceImpl implements IEquipoService{
     @Override
     public int[] getBastion(String teamId) {
         Optional<TeamDataEntity> opt = repository.findById(teamId);
-        if (opt.isEmpty()) {
+        if (!opt.isPresent()) {
             return null;
         }
         TeamDataEntity team = opt.get();
@@ -217,7 +217,7 @@ public class EquipoServiceImpl implements IEquipoService{
     @Override
     public void setAttackZone(String teamId, int x, int y, int z) {
         Optional<TeamDataEntity> opt = repository.findById(teamId);
-        if (opt.isEmpty()) {
+        if (!opt.isPresent()) {
             return;
         }
         TeamDataEntity team = opt.get();
@@ -241,7 +241,7 @@ public class EquipoServiceImpl implements IEquipoService{
     @Override
     public void startAttackPhase(String teamId) {
         Optional<TeamDataEntity> opt = repository.findById(teamId);
-        if (opt.isEmpty()) {
+        if (!opt.isPresent()) {
             return;
         }
         TeamDataEntity team = opt.get();
