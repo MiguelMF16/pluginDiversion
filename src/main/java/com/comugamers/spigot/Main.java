@@ -7,6 +7,7 @@ import com.comugamers.quanta.modules.storage.BaseStorageModule;
 import com.comugamers.spigot.listener.BastionBoundaryListener;
 import com.comugamers.spigot.listener.PvpAttackListener;
 import com.comugamers.spigot.listener.AttackLeaderDeathListener;
+import com.comugamers.spigot.listener.AttackJoinListener;
 import com.comugamers.quanta.annotations.alias.Autowired;
 import com.comugamers.spigot.service.IEquipoService;
 
@@ -26,6 +27,7 @@ public class Main extends QuantaPaperPlugin {
         getServer().getPluginManager().registerEvents(new BastionBoundaryListener(equipoService), this);
         getServer().getPluginManager().registerEvents(new PvpAttackListener(equipoService), this);
         getServer().getPluginManager().registerEvents(new AttackLeaderDeathListener(equipoService), this);
+        getServer().getPluginManager().registerEvents(new AttackJoinListener(equipoService), this);
     }
 
     @Override
