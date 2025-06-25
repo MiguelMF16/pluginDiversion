@@ -41,6 +41,8 @@ public class EquipoServiceImpl implements IEquipoService{
     private final Set<String> restrictedTeams = new HashSet<>();
     // Invitaciones pendientes: jugador -> id del equipo
     private final Map<UUID, String> pendingInvites = new HashMap<>();
+    // Cofres asignados por equipo
+    private final Map<String, org.bukkit.inventory.ItemStack[]> teamChests = new HashMap<>();
     private String attackTarget;
     private BossBar attackBossBar;
     private BukkitTask attackTask;
@@ -274,6 +276,19 @@ public class EquipoServiceImpl implements IEquipoService{
             }
         }
 
+        org.bukkit.inventory.ItemStack[] chest = teamChests.get(teamId);
+        if (chest != null) {
+            Player leaderPlayer = Bukkit.getPlayer(team.getLeader());
+            if (leaderPlayer != null) {
+                for (org.bukkit.inventory.ItemStack item : chest) {
+                    if (item != null && item.getType() != org.bukkit.Material.AIR) {
+                        leaderPlayer.getInventory().addItem(item);
+                    }
+                }
+            }
+            teamChests.remove(teamId);
+        }
+
         startAttackTimer(team);
     }
 
@@ -348,6 +363,21 @@ public class EquipoServiceImpl implements IEquipoService{
     @Override
     public boolean isTeamRestricted(String teamId) {
         return restrictedTeams.contains(teamId);
+    }
+
+    @Override
+    public void setTeamChest(String teamId, org.bukkit.inventory.ItemStack[] contents) {
+        teamChests.put(teamId, contents);
+    }
+
+    @Override
+    public org.bukkit.inventory.ItemStack[] getTeamChest(String teamId) {
+        return teamChests.get(teamId);
+    }
+
+    @Override
+    public void removeTeamChest(String teamId) {
+        teamChests.remove(teamId);
     }
 
     // ----- Scoreboard management -----
