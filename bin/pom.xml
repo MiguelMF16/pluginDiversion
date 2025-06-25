@@ -23,7 +23,7 @@
         <dependency>
             <groupId>com.comugamers.quanta.platform.paper</groupId>
             <artifactId>quanta-platform-paper</artifactId>
-            <version>2025.0615.1-SNAPSHOT</version>
+            <version>2025.0622.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
     
