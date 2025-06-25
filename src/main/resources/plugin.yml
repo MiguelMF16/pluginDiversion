@@ -26,3 +26,5 @@ commands:
     description: Teletransporta a los jugadores para iniciar la fase de ataque
   objetivopvp:
     description: Permite atacar al equipo indicado sin PVP entre los atacantes
+  setcofre:
+    description: Guarda el contenido de un cofre para un equipo

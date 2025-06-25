@@ -31,6 +31,29 @@ public interface IEquipoService {
     boolean isTeamRestricted(String teamId);
 
     /**
+     * Establece el contenido del cofre asociado a un equipo.
+     *
+     * @param teamId  Identificador del equipo.
+     * @param contents Contenido del cofre.
+     */
+    void setTeamChest(String teamId, org.bukkit.inventory.ItemStack[] contents);
+
+    /**
+     * Obtiene el contenido del cofre de un equipo.
+     *
+     * @param teamId Identificador del equipo.
+     * @return Arreglo de ItemStack con el contenido o null si no existe.
+     */
+    org.bukkit.inventory.ItemStack[] getTeamChest(String teamId);
+
+    /**
+     * Elimina el cofre almacenado para un equipo.
+     *
+     * @param teamId Identificador del equipo.
+     */
+    void removeTeamChest(String teamId);
+
+    /**
      * Agrega un jugador al contador de ataque si hay uno activo.
      *
      * @param player Jugador a agregar.
