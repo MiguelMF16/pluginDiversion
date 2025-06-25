@@ -1,6 +1,6 @@
 <factorypath>
-    <factorypathentry kind="VARJAR" id="M2_REPO/com/comugamers/quanta/platform/paper/quanta-platform-paper/2025.0615.1-SNAPSHOT/quanta-platform-paper-2025.0615.1-SNAPSHOT.jar" enabled="true" runInBatchMode="false"/>
-    <factorypathentry kind="VARJAR" id="M2_REPO/com/comugamers/quanta/core/quanta-core/2025.0615.1-SNAPSHOT/quanta-core-2025.0615.1-SNAPSHOT.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/com/comugamers/quanta/platform/paper/quanta-platform-paper/2025.0622.1-SNAPSHOT/quanta-platform-paper-2025.0622.1-SNAPSHOT.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/com/comugamers/quanta/core/quanta-core/2025.0622.1-SNAPSHOT/quanta-core-2025.0622.1-SNAPSHOT.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="VARJAR" id="M2_REPO/com/google/inject/guice/7.0.0/guice-7.0.0.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="VARJAR" id="M2_REPO/jakarta/inject/jakarta.inject-api/2.0.1/jakarta.inject-api-2.0.1.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="VARJAR" id="M2_REPO/aopalliance/aopalliance/1.0/aopalliance-1.0.jar" enabled="true" runInBatchMode="false"/>
@@ -56,4 +56,5 @@
     <factorypathentry kind="VARJAR" id="M2_REPO/me/yushust/message/core/7.2.0/core-7.2.0.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="VARJAR" id="M2_REPO/org/jetbrains/annotations/20.1.0/annotations-20.1.0.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="VARJAR" id="M2_REPO/me/yushust/message/sourcetype-bukkit-yml/7.2.0/sourcetype-bukkit-yml-7.2.0.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/com/comugamers/quanta/quanta-storage-yaml/2025.0622.1-SNAPSHOT/quanta-storage-yaml-2025.0622.1-SNAPSHOT.jar" enabled="true" runInBatchMode="false"/>
 </factorypath>
