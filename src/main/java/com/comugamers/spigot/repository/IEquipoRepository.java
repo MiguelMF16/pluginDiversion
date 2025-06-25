@@ -6,7 +6,7 @@ import com.comugamers.quanta.modules.storage.repository.QuantaRepository;
 import com.comugamers.spigot.entity.TeamDataEntity;
 import java.util.UUID;
 
-@Repository(storageType = StorageType.FILE)
+@Repository(storageType = StorageType.YAML)
 public interface IEquipoRepository extends QuantaRepository<TeamDataEntity, String>{
 
     boolean existsByDisplayName(String displayName);
