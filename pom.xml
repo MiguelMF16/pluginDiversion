@@ -26,16 +26,21 @@
 			<artifactId>quanta-platform-paper</artifactId>
                         <version>2025.0622.1-SNAPSHOT</version>
 		</dependency>
-		<dependency>
-		  <groupId>com.comugamers.quanta</groupId>
-		  <artifactId>quanta-storage-core</artifactId>
+                <dependency>
+                  <groupId>com.comugamers.quanta</groupId>
+                  <artifactId>quanta-storage-core</artifactId>
                   <version>2025.0622.1-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-	    	<groupId>org.projectlombok</groupId>
-		    <artifactId>lombok</artifactId>
-		    <version>1.18.38</version>
-		</dependency>
+                </dependency>
+                <dependency>
+                  <groupId>com.comugamers.quanta</groupId>
+                  <artifactId>quanta-storage-yaml</artifactId>
+                  <version>2025.0622.1-SNAPSHOT</version>
+                </dependency>
+                <dependency>
+                <groupId>org.projectlombok</groupId>
+                    <artifactId>lombok</artifactId>
+                    <version>1.18.38</version>
+                </dependency>
 	</dependencies>
 	<build>
 		<plugins>

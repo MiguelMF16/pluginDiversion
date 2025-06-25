@@ -25,7 +25,12 @@
             <artifactId>quanta-platform-paper</artifactId>
             <version>2025.0622.1-SNAPSHOT</version>
         </dependency>
-    </dependencies>
+        <dependency>
+            <groupId>com.comugamers.quanta</groupId>
+            <artifactId>quanta-storage-yaml</artifactId>
+            <version>2025.0622.1-SNAPSHOT</version>
+        </dependency>
+  </dependencies>
     
     <build>
         <plugins>

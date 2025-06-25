@@ -57,5 +57,6 @@
     <factorypathentry kind="VARJAR" id="M2_REPO/org/jetbrains/annotations/20.1.0/annotations-20.1.0.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="VARJAR" id="M2_REPO/me/yushust/message/sourcetype-bukkit-yml/7.2.0/sourcetype-bukkit-yml-7.2.0.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="VARJAR" id="M2_REPO/com/comugamers/quanta/quanta-storage-core/2025.0622.1-SNAPSHOT/quanta-storage-core-2025.0622.1-SNAPSHOT.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/com/comugamers/quanta/quanta-storage-yaml/2025.0622.1-SNAPSHOT/quanta-storage-yaml-2025.0622.1-SNAPSHOT.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="VARJAR" id="M2_REPO/org/projectlombok/lombok/1.18.38/lombok-1.18.38.jar" enabled="true" runInBatchMode="false"/>
 </factorypath>
