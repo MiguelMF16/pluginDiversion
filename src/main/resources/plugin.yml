@@ -1,6 +1,6 @@
-name: pluginPrueba
+name: DominiosEnDisputa
 api: "1.13"
-main: com.comugamers.spigot.Main
+main: com.comugamers.dominios.DominiosEnDisputaPlugin
 version: "1.0"
 api-version: "1.13"
 authors:
