@@ -65,6 +65,20 @@ public class TerritoryManager {
 
     public Territory getTerritory(String id) { return territories.get(id); }
 
+    public void setCorner1(String id, Location loc) {
+        Territory t = territories.get(id);
+        if (t != null) {
+            t.setCorner1(loc);
+        }
+    }
+
+    public void setCorner2(String id, Location loc) {
+        Territory t = territories.get(id);
+        if (t != null) {
+            t.setCorner2(loc);
+        }
+    }
+
     public void saveTerritories() {
         FileConfiguration cfg = new YamlConfiguration();
         for (Map.Entry<String, Territory> entry : territories.entrySet()) {

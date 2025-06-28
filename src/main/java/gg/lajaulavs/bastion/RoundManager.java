@@ -30,7 +30,7 @@ public class RoundManager {
             Player player = entry.getKey();
             Territory t = territoryManager.getTerritory(entry.getValue());
             if (t != null) {
-                player.teleport(t.getCorner1());
+                player.teleport(t.getCenter());
             }
         }
 
