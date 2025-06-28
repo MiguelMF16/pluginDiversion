@@ -54,6 +54,14 @@ public class BastionCommand implements CommandExecutor {
             plugin.getRoundManager().startRound();
             return true;
         }
+        if (args[0].equalsIgnoreCase("forzarVictoria") && args.length == 2) {
+            plugin.getRoundManager().forceWin(args[1]);
+            return true;
+        }
+        if (args[0].equalsIgnoreCase("cancelarRonda")) {
+            plugin.getRoundManager().cancelRound();
+            return true;
+        }
         return false;
     }
 }
