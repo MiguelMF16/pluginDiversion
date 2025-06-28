@@ -1,0 +1,3 @@
+# Configuracion por defecto para BastionSolitario
+# No se usa en el codigo actual pero evita errores al cargar.
+rejoin-delay: 5
