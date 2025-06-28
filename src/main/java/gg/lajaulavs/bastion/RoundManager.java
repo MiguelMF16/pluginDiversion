@@ -6,6 +6,7 @@ import java.util.Map;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
 
 /**
  * Maneja el ciclo de rondas y teleporta a los jugadores a sus territorios.
@@ -14,6 +15,7 @@ public class RoundManager {
     private final BastionSolitarioPlugin plugin;
     private final TerritoryManager territoryManager;
     private final Map<Player, String> assignments = new HashMap<>();
+    private BukkitTask roundTask;
 
     public RoundManager(BastionSolitarioPlugin plugin, TerritoryManager territoryManager) {
         this.plugin = plugin;
@@ -34,7 +36,7 @@ public class RoundManager {
             }
         }
 
-        new BukkitRunnable() {
+        roundTask = new BukkitRunnable() {
             int time = 180;
             @Override
             public void run() {
@@ -51,6 +53,26 @@ public class RoundManager {
     private void endRound() {
         // Resumen simple
         Bukkit.broadcastMessage("La ronda ha terminado.");
+        assignments.clear();
+    }
+
+    /** Detiene la ronda otorgando la victoria al equipo indicado */
+    public void forceWin(String team) {
+        if (roundTask != null) {
+            roundTask.cancel();
+            roundTask = null;
+        }
+        Bukkit.broadcastMessage("La ronda ha sido forzada. Ganador: " + team);
+        endRound();
+    }
+
+    /** Cancela la ronda sin declarar ganador */
+    public void cancelRound() {
+        if (roundTask != null) {
+            roundTask.cancel();
+            roundTask = null;
+        }
+        Bukkit.broadcastMessage("La ronda ha sido cancelada.");
         assignments.clear();
     }
 }
