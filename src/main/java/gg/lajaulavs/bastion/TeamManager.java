@@ -24,6 +24,23 @@ public class TeamManager {
         setPlayerTeam(player, team);
     }
 
+    /**
+     * Elimina al jugador como líder si lo es de su equipo.
+     * @return true si se eliminó correctamente
+     */
+    public boolean removeLeader(Player player) {
+        String team = getTeam(player);
+        if (team == null) {
+            return false;
+        }
+        UUID leader = teamLeaders.get(team);
+        if (leader != null && leader.equals(player.getUniqueId())) {
+            teamLeaders.remove(team);
+            return true;
+        }
+        return false;
+    }
+
     public boolean isLeader(Player player) {
         String team = getTeam(player);
         if (team == null) return false;

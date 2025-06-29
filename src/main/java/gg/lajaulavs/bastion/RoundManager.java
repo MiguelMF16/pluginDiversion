@@ -56,6 +56,8 @@ public class RoundManager {
         }
         attackers.add(player.getUniqueId());
         defenders.remove(player.getUniqueId());
+        // Asignar automáticamente la zona de ataque al jugador
+        assign(player, target);
         for (Player member : teamManager.getOnlineMembers(team)) {
             member.sendMessage(player.getName() + " atacará " + target);
         }
@@ -74,6 +76,8 @@ public class RoundManager {
         }
         defenders.put(player.getUniqueId(), territoryId);
         attackers.remove(player.getUniqueId());
+        // Asignar directamente la zona elegida para defender
+        assign(player, territoryId);
         for (Player member : teamManager.getOnlineMembers(team)) {
             member.sendMessage(player.getName() + " defenderá " + territoryId);
         }
