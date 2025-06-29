@@ -57,6 +57,19 @@ public class BastionCommand implements CommandExecutor {
             sender.sendMessage("Líder del equipo " + args[2] + " es ahora " + target.getName());
             return true;
         }
+        if (args[0].equalsIgnoreCase("removeLeader") && args.length == 2) {
+            Player target = Bukkit.getPlayer(args[1]);
+            if (target == null) {
+                sender.sendMessage("Jugador no encontrado");
+                return true;
+            }
+            if (teamManager.removeLeader(target)) {
+                sender.sendMessage("Líder quitado a " + target.getName());
+            } else {
+                sender.sendMessage("Ese jugador no es líder");
+            }
+            return true;
+        }
         if (args[0].equalsIgnoreCase("marcarAtaque") && args.length == 2 && sender instanceof Player) {
             Player leader = (Player) sender;
             roundManager.markAttack(leader, args[1]);
