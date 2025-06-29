@@ -1,6 +1,7 @@
 name: BastionSolitario
+api: "1.13"
 main: gg.lajaulavs.bastion.BastionSolitarioPlugin
-version: 1.0
+version: "1.0"
 api-version: 1.20
 commands:
   bs:
