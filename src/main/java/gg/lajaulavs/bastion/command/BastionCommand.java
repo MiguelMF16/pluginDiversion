@@ -3,6 +3,7 @@ package gg.lajaulavs.bastion.command;
 import gg.lajaulavs.bastion.BastionSolitarioPlugin;
 import gg.lajaulavs.bastion.RoundManager;
 import gg.lajaulavs.bastion.TerritoryManager;
+import gg.lajaulavs.bastion.TeamManager;
 import org.bukkit.Location;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -24,14 +25,51 @@ public class BastionCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length == 0) return false;
         TerritoryManager territoryManager = plugin.getTerritoryManager();
+        RoundManager roundManager = plugin.getRoundManager();
+        TeamManager teamManager = plugin.getTeamManager();
         if (args[0].equalsIgnoreCase("asignar") && args.length == 3) {
             Player target = Bukkit.getPlayer(args[1]);
             if (target == null) {
                 sender.sendMessage("Jugador no encontrado");
                 return true;
             }
-            plugin.getRoundManager().assign(target, args[2]);
+            roundManager.assign(target, args[2]);
             sender.sendMessage("Asignado " + target.getName() + " a " + args[2]);
+            return true;
+        }
+        if (args[0].equalsIgnoreCase("setTeam") && args.length == 3) {
+            Player target = Bukkit.getPlayer(args[1]);
+            if (target == null) {
+                sender.sendMessage("Jugador no encontrado");
+                return true;
+            }
+            teamManager.setPlayerTeam(target, args[2]);
+            sender.sendMessage("Equipo de " + target.getName() + " establecido a " + args[2]);
+            return true;
+        }
+        if (args[0].equalsIgnoreCase("setLeader") && args.length == 3) {
+            Player target = Bukkit.getPlayer(args[1]);
+            if (target == null) {
+                sender.sendMessage("Jugador no encontrado");
+                return true;
+            }
+            teamManager.setLeader(args[2], target);
+            sender.sendMessage("Líder del equipo " + args[2] + " es ahora " + target.getName());
+            return true;
+        }
+        if (args[0].equalsIgnoreCase("marcarAtaque") && args.length == 2 && sender instanceof Player) {
+            Player leader = (Player) sender;
+            roundManager.markAttack(leader, args[1]);
+            return true;
+        }
+        if (args[0].equalsIgnoreCase("atacar") && sender instanceof Player) {
+            Player p = (Player) sender;
+            roundManager.chooseAttack(p);
+            return true;
+        }
+        if (args[0].equalsIgnoreCase("defender") && args.length == 2 && sender instanceof Player) {
+            Player p = (Player) sender;
+            roundManager.chooseDefense(p, args[1]);
             return true;
         }
         if (args[0].equalsIgnoreCase("marcarZona") && args.length == 3 && sender instanceof Player) {
@@ -51,15 +89,15 @@ public class BastionCommand implements CommandExecutor {
             return true;
         }
         if (args[0].equalsIgnoreCase("startRound")) {
-            plugin.getRoundManager().startRound();
+            roundManager.startRound();
             return true;
         }
         if (args[0].equalsIgnoreCase("forzarVictoria") && args.length == 2) {
-            plugin.getRoundManager().forceWin(args[1]);
+            roundManager.forceWin(args[1]);
             return true;
         }
         if (args[0].equalsIgnoreCase("cancelarRonda")) {
-            plugin.getRoundManager().cancelRound();
+            roundManager.cancelRound();
             return true;
         }
         return false;
