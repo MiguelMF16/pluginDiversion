@@ -6,12 +6,14 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class BastionSolitarioPlugin extends JavaPlugin {
     private TerritoryManager territoryManager;
     private RoundManager roundManager;
+    private TeamManager teamManager;
 
     @Override
     public void onEnable() {
         saveDefaultConfig();
         territoryManager = new TerritoryManager(this);
-        roundManager = new RoundManager(this, territoryManager);
+        teamManager = new TeamManager();
+        roundManager = new RoundManager(this, territoryManager, teamManager);
         getCommand("bs").setExecutor(new BastionCommand(this));
     }
 
@@ -26,5 +28,9 @@ public class BastionSolitarioPlugin extends JavaPlugin {
 
     public RoundManager getRoundManager() {
         return roundManager;
+    }
+
+    public TeamManager getTeamManager() {
+        return teamManager;
     }
 }
