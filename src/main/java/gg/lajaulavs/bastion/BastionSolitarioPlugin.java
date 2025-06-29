@@ -3,6 +3,8 @@ package gg.lajaulavs.bastion;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import gg.lajaulavs.bastion.command.BastionCommand;
+
 public class BastionSolitarioPlugin extends JavaPlugin {
     private TerritoryManager territoryManager;
     private RoundManager roundManager;
